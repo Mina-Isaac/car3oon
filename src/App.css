@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 
 .App-logo {
@@ -35,4 +38,22 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@keyframes fade {
+  100% {
+    opacity: 1;
+  }
+}
+
+.name-container {
+  position: absolute;
+  left: 156px;
+  top: 70px;
+  font-size: medium;
+  font-size: xx-large;
+  opacity: 0;
+  animation: fade 2s;
+  border-radius: 10px;
+  border: 2px solid red;
 }
