@@ -57,3 +57,21 @@
   border-radius: 10px;
   border: 2px solid red;
 }
+
+.decorative-circle {
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 79px;
+  left: 164px;
+}
+.card-styling {
+  position: fixed;
+  left: 543px;
+  font-size: xxx-large;
+  background-color: lightblue;
+  border: 8px solid blue;
+}

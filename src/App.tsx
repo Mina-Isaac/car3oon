@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
 import { BackendResponse, Person } from "./types";
-import { isTemplateExpression } from "typescript";
 
 function App() {
   const [personArray, setPersonArray] = useState<Person[]>([]);
   const [hoveredItem, setHoveredItem] = useState<Person>();
-  const [card, setCard] = useState<any>();
+  const [selectedIndex, setSelectedIndex] = useState<number | undefined>(
+    undefined
+  );
+  // let selectedIndex: number | undefined = undefined;
 
   useEffect(() => {
     axios
@@ -16,21 +17,20 @@ function App() {
       .then((res) => setPersonArray(res.data.results));
   }, []);
 
-  const dateOfBirths = personArray
-    .filter((item) => item.dob.age > 30)
-    .map((item) => item);
+  const dateOfBirths = personArray.filter((item) => item.dob.age > 30);
 
-  const images = dateOfBirths.map((item) => {
+  const images = dateOfBirths.map((item, index) => {
     return (
       <div
         style={{ borderRadius: "50%", padding: "20px", position: "relative" }}
-        onClick={() => setCard(item.name)}
+        onClick={() => setSelectedIndex(index)}
         onMouseEnter={() => {
           setHoveredItem(item);
         }}
         onMouseLeave={() => setHoveredItem(undefined)}
       >
-        {card === item.name && <div>{item.name.first}</div>}
+        <span className="decorative-circle"></span>
+
         <img src={item.picture.large} alt="صورة روح امه" />
         {hoveredItem === item && (
           <div className="name-container">{item.name.first}</div>
@@ -38,7 +38,16 @@ function App() {
       </div>
     );
   });
-  return <div className="App">{images}</div>;
+  return (
+    <div className="App">
+      {selectedIndex !== undefined && (
+        <div className="card-styling">
+          {personArray[selectedIndex].name.first}
+        </div>
+      )}
+      {images}
+    </div>
+  );
 }
 
 export default App;
