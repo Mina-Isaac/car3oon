@@ -9,6 +9,7 @@ function App() {
   const [personArray, setPersonArray] = useState<Person[]>([]);
   const [hoveredItem, setHoveredItem] = useState<Person>();
   const [card, setCard] = useState<any>();
+  const [clicedCard, setClickedCard] = useState<any>()
 
   useEffect(() => {
     axios
@@ -25,12 +26,20 @@ function App() {
       <div
         style={{ borderRadius: "50%", padding: "20px", position: "relative" }}
         onClick={() => setCard(item.name)}
+        onDoubleClick={()=>{setCard(undefined)}}
+        
         onMouseEnter={() => {
           setHoveredItem(item);
         }}
         onMouseLeave={() => setHoveredItem(undefined)}
       >
-        {card === item.name && <div>{item.name.first}</div>}
+        {card === item.name && <div
+        className="card"
+        onClick={()=>{setClickedCard(card)}}
+        >
+            {item.name.first}
+            {clicedCard === card && <div className="phone"> {item.phone} </div>}
+            </div>}
         <img src={item.picture.large} alt="صورة روح امه" />
         {hoveredItem === item && (
           <div className="name-container">{item.name.first}</div>

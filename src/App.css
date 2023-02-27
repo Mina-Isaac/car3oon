@@ -57,3 +57,21 @@
   border-radius: 10px;
   border: 2px solid red;
 }
+
+.card{
+  width:733%;
+  position :  absolute;
+  top:"178px";
+  font-size: xx-large;
+  color: red;
+  
+
+}
+/*.phone{
+  width:733%;
+  position :  relative;
+  top:"178px";
+  font-size: large;
+  color: blue;
+ 
+}*/
