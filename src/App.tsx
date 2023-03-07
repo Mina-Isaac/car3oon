@@ -34,7 +34,7 @@ function App() {
     setClickedCard={setClickedCard}
     clicedCard={clicedCard}
     hoveredItem={hoveredItem}/>);
-        //@ts-ignore
+    //@ts-ignore
   return <div className="App">{images}</div>;
 }
 
