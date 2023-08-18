@@ -31,9 +31,9 @@ function App() {
       >
         <span className="decorative-circle"></span>
 
-        <img src={item.picture.large} alt="صورة روح امه" />
+        <img src={item.picture.large} alt="Person Picture" />
         {hoveredItem === item && (
-          <div className="name-container">{item.name.first}</div>
+          <div className="name-container">{item.name.first} {item.email}</div>
         )}
       </div>
     );
