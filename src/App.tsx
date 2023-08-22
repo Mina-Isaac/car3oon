@@ -7,16 +7,16 @@ import { useAppDispatch, useAppSelector } from "./Redux/Hooks";
 
 
 function App() {
- 
-  
+
+
   const [hoveredItem, setHoveredItem] = useState<Person>();
   const [selectedIndex, setSelectedIndex] = useState<number | undefined>(
     undefined
   );
-  
-  const dispatch=useAppDispatch();
+
+  const dispatch = useAppDispatch();
   useEffect(() => {
-        dispatch(getData())    
+    dispatch(getData())
   }, []);
 
   // let selectedIndex: number | undefined = undefined;
@@ -52,6 +52,11 @@ function App() {
   });
   return (
     <div className="App">
+      {selectedIndex !== undefined &&hoveredItem!==undefined &&
+        <div className="hovered">
+          <h2>{personArray.list[selectedIndex].email}</h2>
+
+        </div>}
       {selectedIndex !== undefined && (
 
 
@@ -66,7 +71,10 @@ function App() {
         </div>
 
       )}
+      
+
       {images}
+
     </div>
   );
 }
