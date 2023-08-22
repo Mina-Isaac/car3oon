@@ -1,49 +1,70 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import axios from "axios";
-import { BackendResponse, Person } from "./types";
+import { Person } from "./types";
+import { getData, selectPerson } from "./Redux/PersonSlice";
+import { useAppDispatch, useAppSelector } from "./Redux/Hooks";
+
+
 
 function App() {
-  const [personArray, setPersonArray] = useState<Person[]>([]);
+ 
+  
   const [hoveredItem, setHoveredItem] = useState<Person>();
   const [selectedIndex, setSelectedIndex] = useState<number | undefined>(
     undefined
   );
-  // let selectedIndex: number | undefined = undefined;
-
+  
+  const dispatch=useAppDispatch();
   useEffect(() => {
-    axios
-      .get<BackendResponse>("https://randomuser.me/api/?results=10")
-      .then((res) => setPersonArray(res.data.results));
+        dispatch(getData())    
   }, []);
 
-  const dateOfBirths = personArray.filter((item) => item.dob.age > 30);
+  // let selectedIndex: number | undefined = undefined;
 
-  const images = dateOfBirths.map((item, index) => {
+  const personArray = useAppSelector(selectPerson);
+
+  const images = personArray.list.map((item, index) => {
     return (
       <div
-        style={{ borderRadius: "50%", padding: "20px", position: "relative" }}
+
         onClick={() => setSelectedIndex(index)}
         onMouseEnter={() => {
-          setHoveredItem(item);
+          setHoveredItem(item)
         }}
         onMouseLeave={() => setHoveredItem(undefined)}
       >
-        <span className="decorative-circle"></span>
+        <div className="parent">
+          <div className="child1">
+            <img src={item.picture.large} />
+          </div>
+          <div className="child2">
+            <h2>{item.name.title}: {item.name.first} {item.name.last}</h2>
+            <p>Tel: {item.phone}</p>
+          </div>
+        </div>
 
-        <img src={item.picture.large} alt="Person Picture" />
-        {hoveredItem === item && (
-          <div className="name-container">{item.name.first} {item.email}</div>
-        )}
       </div>
+
+
+
+
     );
   });
   return (
     <div className="App">
       {selectedIndex !== undefined && (
-        <div className="card-styling">
-          {personArray[selectedIndex].name.first}
+
+
+        <div className="afterEffect">
+          <h1>
+            {personArray.list[selectedIndex].name.first}
+          </h1>
+          <p>
+            {personArray.list[selectedIndex].phone}
+          </p>
+
         </div>
+
       )}
       {images}
     </div>
@@ -51,3 +72,7 @@ function App() {
 }
 
 export default App;
+function newFunction(): any {
+  return getData();
+}
+
